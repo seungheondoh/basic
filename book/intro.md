@@ -1,11 +1,6 @@
-# Welcome to your Jupyter Book
+# Basics for Ph.D Survival
 
-This is a small sample book to give you a feel for how book content is
-structured.
-It shows off a few of the major file types, as well as some sample content.
-It does not go in-depth into any particular topic - check out [the Jupyter Book documentation](https://jupyterbook.org) for more information.
-
-Check out the content pages bundled with this sample book to see more.
+박사과정 생존을 위한 기본지식 글 블로그 입니다. [SeungHeon Doh](https://seungheondoh.github.io/), Ph.D Candidate in [Music and Audio Computing Lab](https://mac.kaist.ac.kr/), KAIST
 
 ```{tableofcontents}
 ```
