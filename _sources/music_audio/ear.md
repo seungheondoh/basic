@@ -5,10 +5,9 @@
 
 ```{figure} ../images/ear.png
 ---
-height: 500px
 name: ear
 ---
-귀의 구조
+귀의 구조, 그림 출처 [GCT731 Cognitive Science of Music](https://hss.kaist.ac.kr/sub02/info.php?idx=76), [Auditoryneuroscience](https://auditoryneuroscience.com/acoustics)
 ```
 
 ## Outer ear(외의)
@@ -19,10 +18,9 @@ Middle ear를 구성하는 요소는 크게 The tympanic membrane(고막) 과 Os
 
 ```{figure} ../images/middlear.png
 ---
-height: 500px
 name: middle ear
 ---
-중이의 구조
+중이의 구조, 그림 출처 [GCT731 Cognitive Science of Music](https://hss.kaist.ac.kr/sub02/info.php?idx=76), [Auditoryneuroscience](https://auditoryneuroscience.com/acoustics)
 ```
 
 이럴때는 용어가 아니라 기능에 집중해 봅시다. 중이의 기능은 일반적으로 Sound force control입니다. 즉 소리의 크기를 조절해주는 것이죠. 일반적으로는 Tympanic membrane(고막)과 Oval Window(난원창)사이의 pressure의 차이는 20배정도 납니다. 이 말은 무엇이냐면 Ossicles(오소골)에서 소리의 증폭기능을 해준다는 것이지요. 그 이유는 같은 압력이 들어오게 되지만 (유체와 힘이 고정), Tympanic membrane(고막)과 Oval Window(난원창)사이의 표면 면적은 차이가 발생합니다.이것이 소리의 증폭을 만들어 내게 됩니다. 또한 소리의 감소 기능도 하게 됩니다. Ossicles에는 Stapdius muscle이라는 근육이 존재하게 됩니다. 너무 큰 소리가 들어온다면 중이에서는 귀의 손상을 막아주기 위해 이 두개의 근육이 수축하면서 Ossicles에 밀착하게 됩니다. 이는 진동량을 줄여주는 효과가 있습니다. 이를 일반적으로 Attenuation reflex 라고 부릅니다. 
@@ -32,10 +30,9 @@ name: middle ear
 
 ```{figure} ../images/innerear.png
 ---
-height: 500px
 name: inner ear
 ---
-내이의 구조
+내이의 구조, 그림 출처 [GCT731 Cognitive Science of Music](https://hss.kaist.ac.kr/sub02/info.php?idx=76), [Auditoryneuroscience](https://auditoryneuroscience.com/acoustics)
 ```
 
 
@@ -46,10 +43,9 @@ name: inner ear
 
 ```{figure} ../images/bm.png
 ---
-height: 500px
 name: Basilar membrane
 ---
-기저막
+기저막, 그림 출처 [GCT731 Cognitive Science of Music](https://hss.kaist.ac.kr/sub02/info.php?idx=76), [Auditoryneuroscience](https://auditoryneuroscience.com/acoustics)
 ```
 
 ## Organ of Corti (코르티 기관)
@@ -62,20 +58,18 @@ Organ of Corti의 가장 큰 특징은 hair cells이 있다는 점입니다.(rec
 
 ```{figure} ../images/ot.png
 ---
-height: 500px
 name: Organ of Corti
 ---
-코르티 기관
+코르티 기관, 그림 출처 [GCT731 Cognitive Science of Music](https://hss.kaist.ac.kr/sub02/info.php?idx=76), [Auditoryneuroscience](https://auditoryneuroscience.com/acoustics)
 ```
 
 진동이 들어오면, hair cell은 band(fold) 됩니다. 이 band는 electrical signal을 만듭니다. 전기 신호를 만드는 과정은 바로 Deploarization 입니다. 
 
 ```{figure} ../images/band.png
 ---
-height: 500px
-name: Deploarization
+name: hair cell band, 
 ---
-Deploarization
+hair cell band, 그림 출처 [GCT731 Cognitive Science of Music](https://hss.kaist.ac.kr/sub02/info.php?idx=76), [Auditoryneuroscience](https://auditoryneuroscience.com/acoustics)
 ```
 
 
@@ -87,10 +81,9 @@ Potassium channels open → entry of potassium → Depolarizes the hair cell →
 
 ```{figure} ../images/deplor.png
 ---
-height: 500px
 name: Deploarization2
 ---
-Deploarization2
+Deploarization2, 그림 출처 [GCT731 Cognitive Science of Music](https://hss.kaist.ac.kr/sub02/info.php?idx=76), [Auditoryneuroscience](https://auditoryneuroscience.com/acoustics)
 ```
 
 **Amplification by outer hair cells.**<br>
@@ -103,10 +96,9 @@ outer hair cell에서는 뇌에서의 signal을 moter protein을 통해서 받�
 
 ```{figure} ../images/haircell.png
 ---
-height: 500px
 name: haircell
 ---
-haircell
+haircell, 그림 출처 [GCT731 Cognitive Science of Music](https://hss.kaist.ac.kr/sub02/info.php?idx=76), [Auditoryneuroscience](https://auditoryneuroscience.com/acoustics)
 ```
 
 이번 포스팅에서는 인간의 청각신경을 통해서 소리를 인식하는 과정에 대해서 알아봤습니다. 너무 어려운 용어가 많아서 쉽게 쓰지 못한점에 사과드립니다. 내용을 정리하면 소리는 외이-중이-내이를 거쳐서 들어오며, 내이의 기저막에서 특정 주파수를 인식한 후, 이것을 코르티 기관에서 Depolarization을 통해서 뉴런에 신호를 보내게 된다고 생각하시면 될 것 같습니다. 이 때, 재밌는 점은 Bottom up 뿐만 아니라 top down 구조도 존재한다는 점입니다.

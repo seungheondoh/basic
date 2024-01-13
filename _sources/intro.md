@@ -38,7 +38,7 @@ Generated Image from DALL-E (OpenAI)
 - Evaluation for Informational Retrieval
 - 
 
-**PhD Survival Guide**
+**Ph.D Survival**
 - Rebuttal
 - Thesis Plan
 - Internship
