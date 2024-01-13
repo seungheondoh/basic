@@ -21,6 +21,9 @@ Generated Image from DALL-E (OpenAI)
 #### To-do List
 
 **Music/Audio**
+- Music Notation
+- Dynamics, Intensity, and Loudness
+- Timbre
 - Audio Data Augmentation
 
 **Engineering**
@@ -29,12 +32,13 @@ Generated Image from DALL-E (OpenAI)
 
 **Machine Learning**
 - BackPropagation
+- Foward Forward
 - Cross Entropy and KL divergence
 - Generative Model
 - Regularization
 - Sequence Aggregation
 - Contrastive Loss
-- Joint Embedding Architexture
+- Energy-based Model
 
 **Informational Retrieval**
 - Evaluation for Informational Retrieval
