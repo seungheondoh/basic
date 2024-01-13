@@ -1,1 +1,1 @@
-# Teaching/Advice (지도하기/지도받기)
+# Advice (지도하기/지도받기)
