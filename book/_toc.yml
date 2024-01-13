@@ -1,0 +1,18 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro.md
+parts:
+  - caption: Music and Audio Processing
+    chapters:
+      - file: music_audio/basic_dsp.ipynb
+      - file: music_audio/ear.md
+      - file: music_audio/dynamic_programming.ipynb
+  - caption: Machine Learning
+    chapters:
+      - file: ml/deeplearning.md
+      - file: ml/optim.md
+  # - caption: References
+  #   chapters:
+  #     - file: bibliography.md
