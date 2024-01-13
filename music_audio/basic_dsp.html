@@ -190,6 +190,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../ml/deeplearning.html">Feed forward Network (순방향 신경망)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ml/optim.html">Optimization, GradientDescent (최적화와 경사하강법)</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Ph.D Survival</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../phd/advice.html">Advice (지도하기/지도받기)</a></li>
+</ul>
 
     </div>
 </nav></div>
@@ -388,6 +392,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling">Sampling</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-rate">Sampling rate : 얼마나 잘게 쪼갤 것인가?</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-theorem">Sampling theorem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">오디오 데이터 만져보기</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nomalization-quantization">Nomalization &amp; Quantization</a></li>
@@ -411,7 +416,7 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spectrogram">Spectrogram</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mel-scale">Mel Scale</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">한줄로 호출하기!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">한줄로 호출하기!</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#capstrum">Capstrum</a><ul class="nav section-nav flex-column">
@@ -465,6 +470,11 @@ document.write(`
 <li><p>Speech communication : 8 kHz(8000 sample/second)</p></li>
 </ul>
 <img src='https://i.imgur.com/vamPrOJ.png'>
+</section>
+<section id="id1">
+<h3>오디오 데이터 만져보기<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>이제 torchaudio 라이브러리를 활용해서 실제 오디오 데이터들을 만져보고 시각화해봅시다!
+오디오 데이터 중에서 우리는 LIBRISPEECH 라는 화자음성 데이터를 사용해보려고 합니다. 이 데이터셋은 오디오와 전사 텍스트 그리고 스피커의 정보까지 보유한 훌륭한 데이터셋입니다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">librosa</span>
@@ -486,7 +496,8 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample_item</span> <span class="o">=</span>  <span class="n">test_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># returns a tuple (waveform, sample_rate, utterance, speaker_id, chapter_id, utterance_id)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># returns a tuple (waveform, sample_rate, utterance, speaker_id, chapter_id, utterance_id)</span>
+<span class="n">sample_item</span> <span class="o">=</span>  <span class="n">test_dataset</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> 
 </pre></div>
 </div>
 </div>
@@ -955,8 +966,8 @@ m = 2595 \log_{10}\left(1 + \frac{f}{700}\right)
 </div>
 </div>
 </div>
-<section id="id1">
-<h3>한줄로 호출하기!<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<section id="id2">
+<h3>한줄로 호출하기!<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>아주 쉬운 미리 짜여진 라이브러리 함수로 위 과정을 넘어가는 방법도 있습니다.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1040,7 +1051,7 @@ m = 2595 \log_{10}\left(1 + \frac{f}{700}\right)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x14d3492d0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x14e6e27d0&gt;
 </pre></div>
 </div>
 <img alt="../_images/d5cddb53d3d0cd6bc87b9ff2122310e929d144b47a44bc43b8e02f21b1e20fe3.png" src="../_images/d5cddb53d3d0cd6bc87b9ff2122310e929d144b47a44bc43b8e02f21b1e20fe3.png" />
@@ -1140,6 +1151,7 @@ m = 2595 \log_{10}\left(1 + \frac{f}{700}\right)
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling">Sampling</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-rate">Sampling rate : 얼마나 잘게 쪼갤 것인가?</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-theorem">Sampling theorem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">오디오 데이터 만져보기</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nomalization-quantization">Nomalization &amp; Quantization</a></li>
@@ -1163,7 +1175,7 @@ m = 2595 \log_{10}\left(1 + \frac{f}{700}\right)
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spectrogram">Spectrogram</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mel-scale">Mel Scale</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">한줄로 호출하기!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">한줄로 호출하기!</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#capstrum">Capstrum</a><ul class="nav section-nav flex-column">
