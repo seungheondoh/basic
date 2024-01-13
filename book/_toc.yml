@@ -15,7 +15,7 @@ parts:
       - file: ml/optim.md
   - caption: Ph.D Survival
     chapters:
-      - file: phd/deeplearning.md
+      - file: phd/advice.md
   # - caption: References
   #   chapters:
   #     - file: bibliography.md
