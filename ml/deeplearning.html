@@ -1,0 +1,1154 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Feed forward Network (순방향 신경망) &#8212; Music Information Retrieval &amp; Machine Learning Blog</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ml/deeplearning';</script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Optimization, GradientDescent (최적화와 경사하강법)" href="optim.html" />
+    <link rel="prev" title="Audio Matching with Dynamic Programming (다이나믹 프로그래밍을 이용한 오디오 매칭)" href="../music_audio/dynamic_programming.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <header>
+  
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
+  
+  </header>
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Music Information Retrieval & Machine Learning Blog - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Music Information Retrieval & Machine Learning Blog - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Music Infromation Retrieval and Machine Learning
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Music and Audio Processing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../music_audio/basic_dsp.html">Basic Digital Signal Processing (디지털 신호처리 기초)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../music_audio/ear.html">Auditory Pathway (귀의 청각경로)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../music_audio/dynamic_programming.html">Audio Matching with Dynamic Programming (다이나믹 프로그래밍을 이용한 오디오 매칭)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Machine Learning</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Feed forward Network (순방향 신경망)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optim.html">Optimization, GradientDescent (최적화와 경사하강법)</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/seungheondoh/basic" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/seungheondoh/basic/issues/new?title=Issue%20on%20page%20%2Fml/deeplearning.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/ml/deeplearning.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Feed forward Network (순방향 신경망)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feed-forward">Feed forward</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#network">Network</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural">Neural</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#universal-approximation-theorem">Universal Approximation Theorem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-layer-perceptron">Multi-Layer-Perceptron</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-non-linear">Linear &amp; Non-linear</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear">Linear</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-linear">Non-Linear</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-to-input">output to input</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ouput-layer">Ouput Layer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loss-function">Loss function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-implementation">Code Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-setting">1. Architecture Setting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initialize-parameters">2.Initialize_parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forward-propagation">3.Forward Propagation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-forward">Linear_forward</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-activation-forward">Linear-Activation Forward</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#l-layer-model">L-Layer Model</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-function">4. Cost Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#backward-propagation">5.Backward propagation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-backward">Linear backward</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-activation-backward">Linear-Activation backward</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#l-model-backward">L-Model Backward</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-parameter">6. Update parameter</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="feed-forward-network">
+<h1>Feed forward Network (순방향 신경망)<a class="headerlink" href="#feed-forward-network" title="Permalink to this heading">#</a></h1>
+<p>이 포스팅에서는 backpropagation을 Feedforward Network를 활용해서 구현해 봅니다. Deep feedforward network, 흔히 말하는 Multi-layer perceptron은 어떤 function <span class="math notranslate nohighlight">\(f^{*}\)</span>에 근사하는 함수를 찾아가는 모형입니다. Classifier는 <span class="math notranslate nohighlight">\(y=f^{*}(x)\)</span>에서 <span class="math notranslate nohighlight">\(f^{*}\)</span>를 뜻하게 됩니다. 이는 input <span class="math notranslate nohighlight">\(x\)</span>와 category <span class="math notranslate nohighlight">\(y\)</span>를 mapping 하는 함수라는 것입니다. 우리의 feed forward network는 <span class="math notranslate nohighlight">\(y=f(x;\theta)\)</span>의 mapping 관계를 정의합니다. 이때 함수의 파라미터인 <span class="math notranslate nohighlight">\(\theta\)</span>를 학습하며, 최적의 function approximation를 찾아나가게 됩니다. function <span class="math notranslate nohighlight">\(f^{*}\)</span>는 우리의 이상적인 분류 모델이라고 생각하면됩니다.</p>
+<section id="feed-forward">
+<h2>Feed forward<a class="headerlink" href="#feed-forward" title="Permalink to this heading">#</a></h2>
+<p>feedforward라고 부르는 이유는, 학습의 정보의 흐름을 보시게 된다면 데이터 <span class="math notranslate nohighlight">\(x\)</span>로 부터 시작되서, 함수 <span class="math notranslate nohighlight">\(f\)</span>를 정의하고, 정의된 함수를 통해 output 인 <span class="math notranslate nohighlight">\(\hat{y}\)</span>를 산출하게 됩니다. 이 과정에서 <span class="math notranslate nohighlight">\(\text{feedback connection}\)</span>이 부제하게 됩니다. 이 <span class="math notranslate nohighlight">\(\text{feedback connection}\)</span>은 output이 모델에 스스로 feedback을 보내는 연결관계입니다. backpropagation과는 다른 의미입니다. 이는 후에 <span class="math notranslate nohighlight">\(\text{Recurrent Neural Net}\)</span> 에서 구현이 됩니다.</p>
+</section>
+<section id="network">
+<h2>Network<a class="headerlink" href="#network" title="Permalink to this heading">#</a></h2>
+<p>이제 Network의 의미를 살펴봅시다. 일반적으로는 differnet function이 함께 모델을 표현하기 때문에 Network라는 표현이 사용되었습니다. 이 모델은 일반적으로 directed acyclic graph로 표현이 됩니다. 예를 들면,</p>
+<div class="math notranslate nohighlight">
+\[
+f(x) =f^{3}(f^{2}(f^{1}(x)))
+\]</div>
+<p>이러한 체인 구조가 될 것입니다. 이 케이스에서 <span class="math notranslate nohighlight">\(f^{1}\)</span>은 네트워크의 첫번째 레이어, <span class="math notranslate nohighlight">\(f^{2}\)</span>는 두번쨰 레이어가 될 것으로 예상됩니다. 이러한 함수들이 depth를 가지고 존재하기 때문에 deep이라는 이름이 붙여지게 됩니다. 그리고 <span class="math notranslate nohighlight">\(f^{3}\)</span>인 마지막 레이어는 흔히 output layer 라고 불리게 됩니다. 뉴럴넷을 학습시키면서 우리는 이 <span class="math notranslate nohighlight">\(f(x)\)</span>를 <span class="math notranslate nohighlight">\(f^{*}(x)\)</span>에 근사시키고자 노력하게 됩니다.</p>
+</section>
+<section id="neural">
+<h2>Neural<a class="headerlink" href="#neural" title="Permalink to this heading">#</a></h2>
+<p>이제 Neural의 의미를 살펴봅시다. 일반적으로는 우리는 neuroscience로 부터 이 용어를 쉽게 볼 수 있습니다. 각각 뉴럴넷의 hidden layer는 vector의 형태로 표현이 됩니다. 이 vector는 뉴런의 역할로 해석이 가능합니다. 그리고 각 Layer들은 vector-to-vector function으로 표현이 가능합니다. 그리고 Layer들 안에 있는 각각의 노드 즉 unit들은 vector-to-scalar function으로 생각할 수 있습니다. 각 unit들은 계산과 activation의 역할을 하게 됩니다. 이는 뇌의 뉴런들의 기능과 매우 유사합니다. 그렇다고 완벽한 뇌의 모델과 동일한 것은 아닙니다.</p>
+</section>
+<section id="universal-approximation-theorem">
+<h2>Universal Approximation Theorem<a class="headerlink" href="#universal-approximation-theorem" title="Permalink to this heading">#</a></h2>
+<p>Feedforward netwrok가 linear ouput layer와 적어도 하나의 충분한 unit을 가지는 hidden layer를 가지게 된다면, Borel measurable function에 근사하게 됩니다. layer를 충분히 많이 사용하면, 어떠한 형태의 함수와도 유사한 형태의 함수 <span class="math notranslate nohighlight">\(f^{*}(x)\)</span>를 만들 수 있다고 합니다. 하지만 이 theorem은 얼마나 큰 network인지는 알려주지 않습니다.</p>
+<p>위 Theorem을 요약하자면 적어도 하나의 hidden layer를 가진 뉴럴넷은 any function을 표현할수 있지만, infeasibly large해야하기 때문에, generalize correctly한 모델을 만드는데 실패합니다. 때문에 Deeper models을 사용을 해서, generalize error를 줄여나가야 합니다.</p>
+</section>
+<section id="multi-layer-perceptron">
+<h2>Multi-Layer-Perceptron<a class="headerlink" href="#multi-layer-perceptron" title="Permalink to this heading">#</a></h2>
+<figure class="align-default" id="classification">
+<img alt="../_images/classification.png" src="../_images/classification.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text">Multi-Layer-Perceptron</span><a class="headerlink" href="#classification" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\text{Output layer} = \sigma \left( \sum_{j=1}^M w  \text{tanh} \left(w_{j}^{(1)} x + b_j^{(1)} \right)  + b \right) \\
+\text{Hidden layer} = \text{tanh} \left(w_{j}^{(1)} x + b_j^{(1)} \right)
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+\sigma(x) = \frac{1}{1+e^{-x}}
+\]</div>
+</section>
+<section id="linear-non-linear">
+<h2>Linear &amp; Non-linear<a class="headerlink" href="#linear-non-linear" title="Permalink to this heading">#</a></h2>
+<p>위 간단한 뉴럴넷의 모양을 살펴보면 2가지 구간으로 나눌수 있습니다. 첫번쨰는 <span class="math notranslate nohighlight">\(w_{j}^{(1)} x + b_j^{(1)}\)</span> 로 표현되는 Affine transform의 구간입니다. 그리고 이 결과는 <span class="math notranslate nohighlight">\(\text{tanh}\)</span> 혹은 <span class="math notranslate nohighlight">\(\text{sigmoid}\)</span> 같은 활성함수를 통과하는 Non_linear 구간이 있습니다.</p>
+<section id="linear">
+<h3>Linear<a class="headerlink" href="#linear" title="Permalink to this heading">#</a></h3>
+<p>Affine transform은 선형성을 가지는 대표적인 변환입니다. 선형성은 각 입력에 대해서, 입력값을 증가하면 다른 입력값과는 상관없이 결과값이 커지거나 작아지는 것을 의미합니다. input unit들의 영향력이라고 생각하면 됩니다.</p>
+</section>
+<section id="non-linear">
+<h3>Non-Linear<a class="headerlink" href="#non-linear" title="Permalink to this heading">#</a></h3>
+<p>Nonlinear 구간이 등장하는 가장 간단한 이유는 input units간의 interaction을 반영하기 위함입니다. 단순한 linear relation 만 고려한다면, 단순한 linear transform의 합으로 된다. 이러한 linear classifier 는 한계점이 존재하게 됩니다. 이러한 문제들은 Linear한 모델들을 생각하면 편합니다. 예를 들어 Logistic regression과 linear regression을 본다면, closed form solution이나 convex optimization을 가진다는 장점을 가지게 됩니다. 하지만 Linear model는 Linear function을 기반으로 한다는 한계점을 가지게 됩니다. input unit간의 interaction을 반영하지 못하는 결과를 낳게 됩니다.</p>
+<p>만약 현실세계의 데이터를 받아본다면, 선형 classifier가 결정되긴 매우 힘들게 됩니다. 때문에 input들의 interaction을 고려할 수 있는 활성화 함수를 도입하게 됩니다. 활성화 함수 <span class="math notranslate nohighlight">\(\phi\)</span>를 사용하면 XOR 문제 등 비선형 문제를 해결 가능하게 됩니다. 흔히 사용하는 활성화 함수들은 nonlinear transformation의 기능을 지원하며, 이는 저희가 알고있는 kernel trick과 유사한 역할을 하게 됩니다.</p>
+<figure class="align-default" id="activation-function">
+<img alt="../_images/activation.png" src="../_images/activation.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">activation function, 출처: <a class="reference external" href="https://www.coursera.org/learn/neural-networks-deep-learning/home/welcome">Neural Networks and Deep Learning</a></span><a class="headerlink" href="#activation-function" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="output-to-input">
+<h2>output to input<a class="headerlink" href="#output-to-input" title="Permalink to this heading">#</a></h2>
+<p>일반적으로 뉴럴넷은 레이어가 진행되면서, Linear, Non-Linear를 구간을 거친 ouput 데이터가 (<span class="math notranslate nohighlight">\(a\)</span>) 다시 새로운 input으로 들어가게 됩니다.</p>
+<figure class="align-default" id="decision-boundary">
+<img alt="../_images/nn.png" src="../_images/nn.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Decision Boundary, 출처: <a class="reference external" href="https://www.coursera.org/learn/neural-networks-deep-learning/home/welcome">Neural Networks and Deep Learning</a></span><a class="headerlink" href="#decision-boundary" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>위 그림을 보시면 linear한 classifier들이 Affine Transform 을 지나서 Activation을 통과하면 non-linear한 결정 경계가 만들어지는 것을 보실수 있습니다. 강조된 파란색 동그라미는 <span class="math notranslate nohighlight">\(\hat{y}\)</span>를 표현합니다.</p>
+</section>
+<section id="ouput-layer">
+<h2>Ouput Layer<a class="headerlink" href="#ouput-layer" title="Permalink to this heading">#</a></h2>
+<p>최종적으로 Output layer에서는 무엇을 산출하게 될까요? 그것은 우리가 풀려고 하는 Task에 따라서 달라지게 됩니다. 예를들어 맞냐 틀리냐와 같은 이진 분류 문제의 경우에는 0,1 로 결과물을 내야합니다. 이럴때는 output에 sigmoid를 넣고 theshold을 설정하게 됩니다. 만약에 다양한 선택지중 정답을 찾아야하는 multi-classification task의 경우에는 output에 softmax를 통해서 정답을 찾게 됩니다. 만약 수치를 찾게되는 Regression 문제의 경우에는 그냥 산출 output을 받으면 됩니다. 여기서 본다면 우리의 output layer 설정의 단서를 얻을 수 있습니다. Output layer에는 classification 하려는 class 갯수만큼 설정하게 됩니다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\text{Sigmoid} = \frac{1}{1+e^{-\theta x}} \\
+\text{Softmax} = \frac{e^{\theta_1 x}}{\sum _{j}^{}{e^{\theta_j x_j}}} \\
+\text{Linear} = W^{[L]}h^{[L-1]}+b^{[L]}
+\end{split}\]</div>
+</section>
+<section id="loss-function">
+<h2>Loss function<a class="headerlink" href="#loss-function" title="Permalink to this heading">#</a></h2>
+<p>Forward Propagation을 통과해서 나오는 <span class="math notranslate nohighlight">\(\hat{y}\)</span>은 모델의 산출물이긴 하지만 실제 데이터 셋에서 주어진 <span class="math notranslate nohighlight">\(x\)</span>에 대한 pair인 <span class="math notranslate nohighlight">\(y\)</span>와 다를 수 있습니다. 때문에 오차를 계산해주어야 합니다. 우리는 이 오차를 계산하는 함수를 Loss function이라고 합니다.</p>
+</section>
+<section id="code-implementation">
+<h2>Code Implementation<a class="headerlink" href="#code-implementation" title="Permalink to this heading">#</a></h2>
+<p>코드 구현은 andrew ug 교수님의 coursera강의 중 Building your Deep Neural Network - Step by Step 과제로 표현합니다.</p>
+<p>모형의 아키텍쳐는 2layer MLP로 구성되어있으며, hidden unit의 activation function을 relu 그리고 output layer의 activation function을 sigmoid로 설정되어 있습니다. 구조를 다음 그림으로 표현하겠습니다.</p>
+<figure class="align-default" id="two-layer-mlp">
+<img alt="../_images/arci.png" src="../_images/arci.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Two Layer MLP, 출처: <a class="reference external" href="https://www.coursera.org/learn/neural-networks-deep-learning/home/welcome">Neural Networks and Deep Learning</a></span><a class="headerlink" href="#two-layer-mlp" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="architecture-setting">
+<h3>1. Architecture Setting<a class="headerlink" href="#architecture-setting" title="Permalink to this heading">#</a></h3>
+<p>뉴럴넷의 가장 간단한 아키텍츠를 세팅해보려고 합니다. 저희에게 필요한 것은 레이어의 갯수와 뉴런의 갯수 그리고, 각 layer들의 연결 패턴을 고려해야합니다. 이번 케이스에서는 Input, hidden, output layer를 각각 하나씩 가지고 있는 모듈을 만들어 보려고합니다. connectivity pattern은 fully connected 로 하겠습니다. 이후 CNN과 RNN post를 통해 다른 connectivity pattern을 소개하겠습니다. 레이어와 뉴런의 갯수는 list의 길이와 element를 통해 표현이 가능합니다.</p>
+<ul class="simple">
+<li><p>Layer number</p></li>
+<li><p>Neuron number</p></li>
+<li><p>connectivity pattern</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">layer_dims</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">Z</span><span class="p">):</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">Z</span><span class="p">))</span>
+    <span class="n">cache</span> <span class="o">=</span> <span class="n">Z</span>
+    <span class="k">return</span> <span class="n">A</span><span class="p">,</span> <span class="n">cache</span>
+
+<span class="k">def</span> <span class="nf">relu</span><span class="p">(</span><span class="n">Z</span><span class="p">):</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">Z</span><span class="p">)</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">Z</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">cache</span> <span class="o">=</span> <span class="n">Z</span> 
+    <span class="k">return</span> <span class="n">A</span><span class="p">,</span> <span class="n">cache</span>
+</pre></div>
+</div>
+</section>
+<section id="initialize-parameters">
+<h3>2.Initialize_parameters<a class="headerlink" href="#initialize-parameters" title="Permalink to this heading">#</a></h3>
+<p>학습할 파라미터들의 초기값을 잡아주어야합니다. 뉴럴넷에서 학습이 이루어져야하는 파라미터는 일반적으로 weight와 bias입니다. weight와 bias의 초기값 설정은 매우 중요합니다. 일반적으로 가장 크게 문제가 되는 경우는 Gradient vanishing이나 local minmum에 빠지는 문제점이 발생하게 됩니다. 일반적으로는 활성화함수로 어떤것을 사용하느냐에 따라서 다른 초기화 방법론이 사용되기도 합니다.(ex. sigmoid, relu 등등)</p>
+<ul class="simple">
+<li><p>Sigmoid, tanh : Xavier Initalization</p></li>
+<li><p>ReLU : He Initalization</p></li>
+</ul>
+<p>우리의 목표는 각 input에 따라서 진행되는 weight가 뉴런마다 적당한 variance를 가지면서 좋은 classifier를 형성하는데 있습니다. 다양한 초기화 방법이 있으나 이후 포스트에서 다루기로 하고 이번에는 Gaussian 분포를 따르면서, 0.01값을 곱해서 매우 작은 값을 가지는 weigth를 이용하여 초기화를 하려고 합니다. 가중치의 초기값은 매우 작은값으로 설정하는 것이 좋습니다. 왜냐하면, 가중치가 너무 큰 값을 가지는 경우 활성값을 계산하게 된다면, 활성화 함수가 거의 1 또는 0으로 확실하게 적용되기 떄문입니다. 이는 학습이 느려지는 문제를 가지게 됩니다. 해당 난수의 생성은 numpy패키지의 np.random.randn를 사용하여 해보도록하겠습니다.</p>
+<p><strong>Arguments</strong><br>
+layer_dims : Input으로 각 레이어들의 dimension을 받게 됩니다. Dimension이라는 것은 각 레이어별로 존재하는 node의 갯수라고 생각하시면 좋습니다.</p>
+<p><strong>Returns</strong><br>
+parameters : python dictionary를 return합니다.
+key는 각 weight와 bias의 string이 들어가게 되며 (“W1”, “b1”, …, “WL”, “bL”), value에는 해당 값들이 들어가게 됩니다.</p>
+<ul class="simple">
+<li><p>Wl : weight matrix입니다. shape은 두개의 레이어의 디멘션으로 구성이 됩니다. (layer_dims[l], layer_dims[l-1])</p></li>
+<li><p>bl : 해당 레이어의 bias들입니다. (layer_dims[l], 1)</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">initialize_parameters_deep</span><span class="p">(</span><span class="n">layer_dims</span><span class="p">):</span>
+    <span class="c1"># dictionary 객체 생성</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># 총 layer들의 길이를 계산</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer_dims</span><span class="p">)</span>
+    <span class="c1"># 레이어들을 돌면서, 레이어들 간의 weight와 bias의 초기값의 난수 생성</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">L</span><span class="p">):</span>
+        <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;W&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">layer_dims</span><span class="p">[</span><span class="n">l</span><span class="p">],</span> <span class="n">layer_dims</span><span class="p">[</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">layer_dims</span><span class="p">[</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="c1">#*0.01</span>
+        <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;b&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">layer_dims</span><span class="p">[</span><span class="n">l</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+        
+        <span class="c1"># assert를 통해, dimension을 맞추줍니다. 틀릴시 error 발생</span>
+        <span class="k">assert</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;W&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="p">)]</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">layer_dims</span><span class="p">[</span><span class="n">l</span><span class="p">],</span> <span class="n">layer_dims</span><span class="p">[</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="k">assert</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;b&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="p">)]</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">layer_dims</span><span class="p">[</span><span class="n">l</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span>
+        
+    <span class="k">return</span> <span class="n">parameters</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">initialize_parameters_deep</span><span class="p">(</span><span class="n">layer_dims</span><span class="p">)</span>
+<span class="n">parameters</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;W1&#39;: array([[ 0.34522571, -0.00435798, -0.55015057, -0.18029009, -0.24863248],
+        [ 0.48145223,  0.48976974,  0.4544385 ,  0.70003399,  0.45756044],
+        [-0.55900747, -0.09964053,  0.28876994,  0.76200738, -0.54389478],
+        [ 0.07710557, -0.27164855, -0.57329413,  0.56887702,  0.45411553]]),
+ &#39;b1&#39;: array([[0.],
+        [0.],
+        [0.],
+        [0.]]),
+ &#39;W2&#39;: array([[-0.02059886,  0.19182803,  0.11765535,  0.0742146 ],
+        [-0.75716588,  0.93100703,  0.56786299, -0.65197777],
+        [-0.55100467, -0.26469174, -0.21975884, -0.01100711]]),
+ &#39;b2&#39;: array([[0.],
+        [0.],
+        [0.]]),
+ &#39;W3&#39;: array([[ 0.93923832,  1.23714427, -0.18204054]]),
+ &#39;b3&#39;: array([[0.]])}
+</pre></div>
+</div>
+</section>
+<section id="forward-propagation">
+<h3>3.Forward Propagation<a class="headerlink" href="#forward-propagation" title="Permalink to this heading">#</a></h3>
+<p>일반적으로 forward 패스는 linear 부분과 non-linear부분으로 나누어져서 진행되게 되어있다. 이번에 구현한 구조는 input layer에서 hidden layer로 가면서는 relu activation function을 그리고, hidden을 지나 output으로 이동하면서 sigmoid activation function을 사용하는 모형이다. 이 모형은 크게 linear 한 연산을 하는 Linear_forwar과 non-linear한 연산을 하는 Linear-Activation Forward으로 나눌수 있다.</p>
+<section id="linear-forward">
+<h4>Linear_forward<a class="headerlink" href="#linear-forward" title="Permalink to this heading">#</a></h4>
+<p><strong>Arguments</strong></p>
+<p>A : input data를 받거나 혹은, 이전 단계에서 activation 함수를 통과한 함수가 됩니다. 벡터의 사이즈는 input number이거나, 이전 레이어의 node만큼 들어오게 됩니다.</p>
+<p>W : weights matrix 입니다. numpy array of shape으로 구성되어 있습니다. (size of current layer, size of previous layer)</p>
+<p>b : bias vector입니다. numpy array of shape으로 구성되어 있습니다. (size of the current layer, 1)</p>
+<p><strong>Returns</strong></p>
+<p>Z : affine transform을 지나서 나온 ouput입니다. 이것이 Activation funtion의 input으로 들어가게 됩니다.</p>
+<p>cache : python dictionary입니다. “A”, “W” 그리고 “b”의 값을 저장합니다 이는 이후의 backward 상황에서 효율적인 계산을 도와주게 됩니다.</p>
+<div class="math notranslate nohighlight">
+\[Z^{[l]} = W^{[l]}A^{[l-1]} +b^{[l]}\]</div>
+</section>
+<section id="linear-activation-forward">
+<h4>Linear-Activation Forward<a class="headerlink" href="#linear-activation-forward" title="Permalink to this heading">#</a></h4>
+<p>Activation function의 경우에는 위에서 작성한 Linear_forward를 받아서 가지고 옵니다. 또한 이때 Linear 계산값과, Activation을 통과한 값 모두 backward과정에서 함수 값을 다시 사용하는 경우가 있기 떄문에 cache에 따로 저장을 해둡니다.</p>
+<p><strong>Arguments</strong><br>
+A_prev : input data를 받거나 혹은, 이전 단계에서 activation 함수를 통과한 함수가 됩니다. 벡터의 사이즈는 input number이거나, 이전 레이어의 node만큼 들어오게 됩니다. A_prev, W, b 모두 linear_forward와 같은 인자입니다.<br>
+W : weights matrix 입니다. numpy array of shape으로 구성되어 있습니다. (size of current layer, size of previous layer)<br>
+b : bias vector입니다. numpy array of shape으로 구성되어 있습니다. (size of the current layer, 1)</p>
+<p><strong>Returns</strong><br>
+A : Activation function을 통과한 output입니다. 이것은 다음 layer의 input으로 들어가게 됩니다.<br>
+cache : python dictionary형태입니다. backward pass의 효율적인 계산을 위해서, affine transform을 거친 값과, activation function을 거친 값 모두 저장해둡니다. key는 “linear_cache” ,”activation_cache”에 각각의 value를 저장해 둡니다.</p>
+<ul class="simple">
+<li><p>Sigmoid
+$<span class="math notranslate nohighlight">\(\sigma(Z) = \sigma(W A + b) = \frac{1}{ 1 + e^{-(W A + b)}}\)</span>$</p></li>
+<li><p>ReLU
+$<span class="math notranslate nohighlight">\(A = RELU(Z) = max(0, Z)\)</span>$.
+<br></p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">linear_forward</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="c1"># W에 A를 내적하게 됩니다. 그후에는 b를 더해줍니다.</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">W</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span>
+    <span class="c1"># Z의 shape이 input과 weight의 shape과 동일한지를 체크합니다.</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">Z</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">W</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="c1"># 계산단계에서 사용한 값을 cache에 저장해둡니다.</span>
+    <span class="n">cache</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cache</span>
+
+<span class="k">def</span> <span class="nf">linear_activation_forward</span><span class="p">(</span><span class="n">A_prev</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">activation</span><span class="p">):</span>
+    <span class="c1"># Activation function의 종류에 따라서 값을 나누어 줍니다.</span>
+    <span class="k">if</span> <span class="n">activation</span> <span class="o">==</span> <span class="s2">&quot;sigmoid&quot;</span><span class="p">:</span>
+        <span class="n">Z</span><span class="p">,</span> <span class="n">linear_cache</span> <span class="o">=</span> <span class="n">linear_forward</span><span class="p">(</span><span class="n">A_prev</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+        <span class="n">A</span><span class="p">,</span> <span class="n">activation_cache</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+    
+    <span class="k">elif</span> <span class="n">activation</span> <span class="o">==</span> <span class="s2">&quot;relu&quot;</span><span class="p">:</span>
+        <span class="n">Z</span><span class="p">,</span> <span class="n">linear_cache</span> <span class="o">=</span> <span class="n">linear_forward</span><span class="p">(</span><span class="n">A_prev</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+        <span class="n">A</span><span class="p">,</span> <span class="n">activation_cache</span> <span class="o">=</span> <span class="n">relu</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+    
+    <span class="c1"># Shape이 input과 weight와 동일한지 체크해줍니다.</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">W</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">A_prev</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="c1"># linear 연산과 activation 연산을 cache에 저장해둡니다.</span>
+    <span class="n">cache</span> <span class="o">=</span> <span class="p">(</span><span class="n">linear_cache</span><span class="p">,</span> <span class="n">activation_cache</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">A</span><span class="p">,</span> <span class="n">cache</span>
+</pre></div>
+</div>
+</section>
+<section id="l-layer-model">
+<h4>L-Layer Model<a class="headerlink" href="#l-layer-model" title="Permalink to this heading">#</a></h4>
+<p>이제 위에서 정의했던 linear 함수들을 조합하여 새로운 L-layer model을 만들어 봅시다.</p>
+<p><strong>Arguments</strong><br>
+X : input으로 들어오게 될 data 의 matrix입니다. (input size, number of examples)<br>
+parameters : 초기에 선언해 둔 parameter들입니다. 위에서 선언한 initialize_parameters_deep의 결과값입니다.</p>
+<p><strong>Returns</strong><br>
+AL : 마지막 layer의 activation 값입니다.<br>
+caches : 모든 linear 부분의 결과 값들과 (there are L-1 of them, indexed from 0 to L-2), 모든 non-linear들의 계산의 결과값들이 저장된 dictionary들이 담긴 list입니다. (there is one, indexed L-1)
+<br></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">L_model_forward</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+    <span class="c1"># cache 들의 list입니다.</span>
+    <span class="n">caches</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">X</span>
+    <span class="c1"># weight와 bias가 저장되어 있기 때문에 //2 를 해주어야 layer의 사이즈가 됩니다.</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+    
+    <span class="c1"># hidden layersms relu를 통과</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">L</span><span class="p">):</span>
+        <span class="n">A_prev</span> <span class="o">=</span> <span class="n">A</span> 
+        <span class="n">A</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="n">linear_activation_forward</span><span class="p">(</span><span class="n">A_prev</span><span class="p">,</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;W&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="p">)],</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;b&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="p">)],</span> <span class="n">activation</span> <span class="o">=</span> <span class="s2">&quot;relu&quot;</span><span class="p">)</span>
+        <span class="n">caches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cache</span><span class="p">)</span>
+    
+    <span class="c1"># output layer는 sigmoid를 통과하게 한다</span>
+    <span class="n">AL</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="n">linear_activation_forward</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;W&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">L</span><span class="p">)],</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;b&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">L</span><span class="p">)],</span> <span class="n">activation</span> <span class="o">=</span> <span class="s2">&quot;sigmoid&quot;</span><span class="p">)</span>
+    <span class="n">caches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cache</span><span class="p">)</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">AL</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">AL</span><span class="p">,</span> <span class="n">caches</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="n">AL</span><span class="p">,</span> <span class="n">caches</span> <span class="o">=</span> <span class="n">L_model_forward</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">AL</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>array([[0.50806541, 0.50446785, 0.99754058, 0.5       ]])
+</pre></div>
+</div>
+</section>
+</section>
+<section id="cost-function">
+<h3>4. Cost Function<a class="headerlink" href="#cost-function" title="Permalink to this heading">#</a></h3>
+<p>우리는 신경망을 통과한 <span class="math notranslate nohighlight">\(\hat{y}\)</span>값을 찾을 수 있었습니다. 하지만 우리의 실제 y 레이블과는 다른 값일 가능성이 매우 크기 떄문에 이를 반영하여 학습을 시켜야합니다. Cost function은 여러가지 종류가 있습니다만, 이번의 경우에는 cross-entropy 함수를 사용하려고합니다. 이후에 Cost function에 대해서도 정리해보도록 하겠습니다.</p>
+<div class="math notranslate nohighlight">
+\[
+-\frac{1}{m} \sum\limits_{i = 1}^{m} (y^{(i)}\log\left(a^{[L] (i)}\right) + (1-y^{(i)})\log\left(1- a^{[L](i)}\right))
+\]</div>
+<p><strong>Arguments</strong><br>
+AL : 뉴럴넷을 통과해서 나오게된 <span class="math notranslate nohighlight">\(\hat{y}\)</span> 입니다. shape (1, number of examples)<br>
+Y – 실제 “label” vector 입니다. (for example: containing 0 if non-cat, 1 if cat), shape (1, number of examples)</p>
+<p><strong>Returns</strong><br>
+cost : cross-entropy cost
+<br></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compute_cost</span><span class="p">(</span><span class="n">AL</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">cost</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="o">/</span><span class="n">m</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">AL</span><span class="p">))</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">Y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">AL</span><span class="p">)))</span>
+    <span class="n">cost</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">cost</span><span class="p">)</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">cost</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">())</span>
+    
+    <span class="k">return</span> <span class="n">cost</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cost</span> <span class="o">=</span> <span class="n">compute_cost</span><span class="p">(</span><span class="n">AL</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cost = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">cost</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>cost = 0.5223175799014049
+</pre></div>
+</div>
+</section>
+<section id="backward-propagation">
+<h3>5.Backward propagation<a class="headerlink" href="#backward-propagation" title="Permalink to this heading">#</a></h3>
+<p>이제 저희는 Cost function에서 보면 변수는 <span class="math notranslate nohighlight">\(a^{[L] (i)}\)</span>입니다. 그리고 <span class="math notranslate nohighlight">\(a\)</span>를 구성하는 가장 parameter는 weight와 bais입니다. 따라서 Cost function 은 W와 b에 대해서 구성되었다고 말할 수 있습니다.</p>
+<p>Backward propagation의 가장 직관적인 이해는 제가 생각할때, Cost function중 해당 parameter가 기여한 부분만큼을 계산하여 updata에 반영하는 것입니다. 따라서 편미분의 개념이 사용되는 것이죠. 편미분은 다른 변수를 고정시키고 특정 변수에 대해서 미분이 진행되는 것입니다. 따라서 parameter 하나하나에 대해서 Cost function의 변화량에 기여하는 부분만큼을 고려하여 미분을 진행시키는 것입니다.</p>
+<p>Andrew ug 교수님은 다음과 같은 그림을 통해서 backward propagation을 설명해주시고 있습니다.</p>
+<figure class="align-default" id="id1">
+<img alt="../_images/back.png" src="../_images/back.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Backward propagation, 출처: <a class="reference external" href="https://www.coursera.org/learn/neural-networks-deep-learning/home/welcome">Neural Networks and Deep Learning</a></span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight">
+\[\frac{d \mathcal{L}(a^{[2]},y)}{{dz^{[1]}}} = \frac{d\mathcal{L}(a^{[2]},y)}{{da^{[2]}}}\frac{{da^{[2]}}}{{dz^{[2]}}}\frac{{dz^{[2]}}}{{da^{[1]}}}\frac{{da^{[1]}}}{{dz^{[1]}}} \]</div>
+<p>Gradient를 계산하는 방식은 다음과 같습니다. Loss 값에 대한 <span class="math notranslate nohighlight">\(dA\)</span>, 즉 Non-linear 파트에 대한 Gradient를 계산하고, 그 다음은 <span class="math notranslate nohighlight">\(dZ\)</span>, linear 파트에 대한 Gradient를 계산하고, 그 이후에 <span class="math notranslate nohighlight">\(dW\)</span>와 <span class="math notranslate nohighlight">\(db\)</span>를 계산해주면서 넘어가게 됩니다.</p>
+<p>간단한 설명을 위해 logistic regression 으로 돌아가서 생각해 봅시다. 저희가 <span class="math notranslate nohighlight">\(da\)</span>를 계산했던 방식은 loss function을 da에 대해서 미분해준 값이였습니다.</p>
+<div class="math notranslate nohighlight">
+\[da = \frac{d \mathcal{L}(a,y)}{{da}} = \frac{-y}{a}+ \frac{1-y}{1-a}\]</div>
+<p>그 다음 계산이 이루어진 부분은 non-linear 파트와 linear 파트를 당담하는 부분입니다. 저희는 chain rule을 사용해서 한번에 계산이 이루어 졌었습니다. actvation function을 <span class="math notranslate nohighlight">\(g(z)\)</span>라고 둔다면 저희의 <span class="math notranslate nohighlight">\(dz\)</span>의 값은, <span class="math notranslate nohighlight">\(da\)</span>을 받아서 미분된 activation에 <span class="math notranslate nohighlight">\(z\)</span>값을 넣어서 계산된량을 곱해진 값이 됩니다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+dz = da \times g'(z) \\
+\frac{\partial L}{\partial z} = \frac{\partial L}{\partial a} \times \frac{da}{dz} \\
+\frac{da}{dz} = \frac{d}{dz}g(z) = g'(z)
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(dW\)</span>를 설명하는 식은 ,Loss function에 대한 W의 미분으로 표현되나 이는 chain rule을 계산해 본다면, 이전 step 의 input에 <span class="math notranslate nohighlight">\(dz\)</span> 를 넣어준 값이 됩니다.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+dW = \frac{\partial L}{\partial W} \\
+dW = dz \times \frac{\partial z}{\partial W} = dz \times a^{l-1}
+\end{split}\]</div>
+<p>동일한 방식으로 bias에 대해서 gradient를 계산한다면
+$<span class="math notranslate nohighlight">\(
+db = \frac{\partial L}{\partial b}\\
+db = dz \times \frac{\partial z}{\partial b} = dz
+\)</span>$</p>
+<p>위 notation을 본다면 우리는 이것이 recursive한 형태로 주어진다는 것을 알게됩니다. 여기서 dynamic programming의 필요성도 나오게 되는 것이 되는것입니다. 또한 위의 계산 방식을 본다면, 두가지 재밌는 성질을 볼 수 있습니다.</p>
+<p>첫번쨰는 계산의 그래프의 앞 순서에서 표현됬던, 값들이 전파되는 것을 볼수 있습니다. 예를들어 <span class="math notranslate nohighlight">\(dz\)</span>를 계산하는데 <span class="math notranslate nohighlight">\(da\)</span>가 사용되며, <span class="math notranslate nohighlight">\(dw\)</span>와 <span class="math notranslate nohighlight">\(db\)</span>를 계산하는데 <span class="math notranslate nohighlight">\(dz\)</span>가 사용되는것이 그 예시입니다. 두번째는 forward에서 linear 파트에서 계산되었던 값들이 activation function의 미분함수의 input으로 들어가는 점입니다. 또한 forward에서 non-linear에서 계산되었던 값들이 <span class="math notranslate nohighlight">\(dw\)</span>를 계산하는 과정에서 사용된다는 점입니다.</p>
+<p><strong>Backpropagation Process</strong><br>
+Backpropagation은 다음과 같은 process를 가지게 됩니다.</p>
+<ul class="simple">
+<li><p>LINEAR backward</p></li>
+<li><p>LINEAR -&gt; ACTIVATION backward</p></li>
+<li><p>Layer -&gt; Layer backward</p></li>
+</ul>
+</section>
+<section id="linear-backward">
+<h3>Linear backward<a class="headerlink" href="#linear-backward" title="Permalink to this heading">#</a></h3>
+<p>Linear 한 영역에서 backward 과정은 다음과 같은 인자를 받게 됩니다.
+<strong>Arguments</strong><br>
+dZ : Z의 변화량입니다. linear 부분에서 ouput이 cost function 에 대한 gradient를 나타냅니다.<br>
+cache : forward과정에서 필요한 값을 받아옵니다. tuple 형태의 (A_prev, W, b) 값들을 받아옵니다.</p>
+<p><strong>Returns</strong><br>
+dA_prev : Linear 구간의 input으로 들어왔었던, 지난 레이어의 activation 을 통과한 A가 cost function에 대한 변화량입니다.<br>
+dW : Linear 구간의 weight의 cost function에 대한 변화량 입니다.<br>
+db : Linear 구간의 bias의 cost function 에 대한 변화량 입니다.</p>
+<section id="linear-activation-backward">
+<h4>Linear-Activation backward<a class="headerlink" href="#linear-activation-backward" title="Permalink to this heading">#</a></h4>
+<p>Activation function <span class="math notranslate nohighlight">\(g(.)\)</span> 에 대해서 Linear-activate backward는 다음과 같이 계산됩니다.</p>
+<div class="math notranslate nohighlight">
+\[
+dZ^{[l]} = dA^{[l]} * g'(Z^{[l]})
+\]</div>
+<p><strong>Arguments</strong><br>
+dA : 현재 layer의 gradient값이 인자로 들어옵니다.<br>
+cache : forward pass에서 계산했던 linear(Z) 부분과 activation(A) 부분의 계산값들을 받습니다.</p>
+<p><strong>Returns</strong><br>
+dA_prev : Linear 구간의 input으로 들어왔었던, 지난 레이어의 activation 을 통과한 A가 cost function에 대한 변화량입니다.<br>
+dW : Linear 구간의 weight의 cost function에 대한 변화량 입니다.<br>
+db : Linear 구간의 bias의 cost function 에 대한 변화량 입니다.<br></p>
+<div class="math notranslate nohighlight">
+\[ 
+dW^{[l]} = \frac{\partial \mathcal{L} }{\partial W^{[l]}} = \frac{1}{m} dZ^{[l]} A^{[l-1] T}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+db^{[l]} = \frac{\partial \mathcal{L} }{\partial b^{[l]}} = \frac{1}{m} \sum_{i = 1}^{m} dZ^{[l](i)}
+\]</div>
+<div class="math notranslate nohighlight">
+\[dA^{[l-1]} = \frac{\partial \mathcal{L} }{\partial A^{[l-1]}} = W^{[l] T} dZ^{[l]}
+\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">relu_backward</span><span class="p">(</span><span class="n">dA</span><span class="p">,</span> <span class="n">cache</span><span class="p">):</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">cache</span>
+    <span class="n">dZ</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dA</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">dZ</span><span class="p">[</span><span class="n">Z</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">dZ</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">Z</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dZ</span>
+
+<span class="k">def</span> <span class="nf">sigmoid_backward</span><span class="p">(</span><span class="n">dA</span><span class="p">,</span> <span class="n">cache</span><span class="p">):</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">cache</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">Z</span><span class="p">))</span>
+    <span class="n">dZ</span> <span class="o">=</span> <span class="n">dA</span> <span class="o">*</span> <span class="n">s</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">s</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">dZ</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">Z</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dZ</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">linear_backward</span><span class="p">(</span><span class="n">dZ</span><span class="p">,</span> <span class="n">cache</span><span class="p">):</span>
+    <span class="n">A_prev</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">cache</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">A_prev</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="n">dW</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">dZ</span><span class="p">,</span><span class="n">cache</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">/</span><span class="n">m</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dZ</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">/</span><span class="n">m</span>
+    <span class="n">dA_prev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">cache</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">dZ</span><span class="p">)</span>
+    
+    <span class="k">assert</span> <span class="p">(</span><span class="n">dA_prev</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">A_prev</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">dW</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">W</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">dA_prev</span><span class="p">,</span> <span class="n">dW</span><span class="p">,</span> <span class="n">db</span>
+
+<span class="k">def</span> <span class="nf">linear_activation_backward</span><span class="p">(</span><span class="n">dA</span><span class="p">,</span> <span class="n">cache</span><span class="p">,</span> <span class="n">activation</span><span class="p">):</span>
+    <span class="n">linear_cache</span><span class="p">,</span> <span class="n">activation_cache</span> <span class="o">=</span> <span class="n">cache</span>
+    <span class="k">if</span> <span class="n">activation</span> <span class="o">==</span> <span class="s2">&quot;relu&quot;</span><span class="p">:</span>
+        <span class="n">dZ</span> <span class="o">=</span> <span class="n">relu_backward</span><span class="p">(</span><span class="n">dA</span><span class="p">,</span> <span class="n">activation_cache</span><span class="p">)</span>
+        <span class="n">dA_prev</span><span class="p">,</span> <span class="n">dW</span><span class="p">,</span> <span class="n">db</span> <span class="o">=</span>  <span class="n">linear_backward</span><span class="p">(</span><span class="n">dZ</span><span class="p">,</span> <span class="n">linear_cache</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">activation</span> <span class="o">==</span> <span class="s2">&quot;sigmoid&quot;</span><span class="p">:</span>
+        <span class="n">dZ</span> <span class="o">=</span> <span class="n">sigmoid_backward</span><span class="p">(</span><span class="n">dA</span><span class="p">,</span> <span class="n">activation_cache</span><span class="p">)</span>
+        <span class="n">dA_prev</span><span class="p">,</span> <span class="n">dW</span><span class="p">,</span> <span class="n">db</span> <span class="o">=</span> <span class="n">linear_backward</span><span class="p">(</span><span class="n">dZ</span><span class="p">,</span> <span class="n">linear_cache</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dA_prev</span><span class="p">,</span> <span class="n">dW</span><span class="p">,</span> <span class="n">db</span>
+</pre></div>
+</div>
+</section>
+<section id="l-model-backward">
+<h4>L-Model Backward<a class="headerlink" href="#l-model-backward" title="Permalink to this heading">#</a></h4>
+<p>이제 위에서 정의했던 backward 함수들을 을 조합하여 새로운 L-layer model을 만들어 봅시다.</p>
+<p><strong>Initializing backpropagation</strong><br>
+가장먼저 Output layer에서 가장, 끝부분에 있었던 산출물의 loss를 구해줍니다.
+$<span class="math notranslate nohighlight">\(
+dAL = - (np.divide(Y, AL) - np.divide(1 - Y, 1 - AL))
+\)</span>$</p>
+<p>우리의 Gradient는 학습의 핵심이 되는 weight와 bias를 업데이트하는 중요한 역할을 하게 됩니다. 때문에 해당 Weight Gradient값을 dictionary 형태로 저장해 줍시다/</p>
+<div class="math notranslate nohighlight">
+\[
+grads[&quot;dW&quot; + str(l)] = dW^{[l]}
+\]</div>
+<p><strong>Arguments</strong><br>
+AL : 확률 벡터입니다. Forward propagtaion의 최종 아웃풋이기도 합니다.<br>
+Y : 실제 y, label 값입니다.</p>
+<p><strong>Returns</strong><br>
+grads : Layer 별로 Gradient 값들이 저장되어있는 dictionary입니다</p>
+<ul class="simple">
+<li><p>grads[“dA” + str(l)] = …</p></li>
+<li><p>grads[“dW” + str(l)] = …</p></li>
+<li><p>grads[“db” + str(l)] = …</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">L_model_backward</span><span class="p">(</span><span class="n">AL</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">caches</span><span class="p">):</span>
+    <span class="n">grads</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1"># 빈 dictionary 호출</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">caches</span><span class="p">)</span> <span class="c1"># 레이어의 갯수를 caches로 부터 받아옵니다.</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">AL</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">Y</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">AL</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># Shape을 AL과 동일하게 해줍니다.</span>
+    
+    <span class="c1"># Initializing the backpropagation</span>
+    <span class="n">dAL</span> <span class="o">=</span> <span class="o">-</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span><span class="n">AL</span><span class="p">)</span><span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">Y</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">AL</span><span class="p">))</span>
+    <span class="c1"># caches index를 잡아둡니다.</span>
+    <span class="n">current_cache</span> <span class="o">=</span> <span class="n">caches</span><span class="p">[</span><span class="n">L</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> 
+    <span class="n">grads</span><span class="p">[</span><span class="s2">&quot;dA&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">L</span><span class="o">-</span><span class="mi">1</span><span class="p">)],</span> <span class="n">grads</span><span class="p">[</span><span class="s2">&quot;dW&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">L</span><span class="p">)],</span> <span class="n">grads</span><span class="p">[</span><span class="s2">&quot;db&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">L</span><span class="p">)]</span> <span class="o">=</span> <span class="n">linear_activation_backward</span><span class="p">(</span><span class="n">dAL</span><span class="p">,</span> <span class="n">current_cache</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">L</span><span class="o">-</span><span class="mi">1</span><span class="p">)):</span>
+        <span class="c1"># indexing입니다.</span>
+        <span class="n">current_cache</span> <span class="o">=</span> <span class="n">caches</span><span class="p">[</span><span class="n">l</span><span class="p">]</span>
+        <span class="n">dA_prev_temp</span><span class="p">,</span> <span class="n">dW_temp</span><span class="p">,</span> <span class="n">db_temp</span> <span class="o">=</span> <span class="n">linear_activation_backward</span><span class="p">(</span><span class="n">grads</span><span class="p">[</span><span class="s2">&quot;dA&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)],</span> <span class="n">current_cache</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)</span>
+        <span class="n">grads</span><span class="p">[</span><span class="s2">&quot;dA&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="p">)]</span> <span class="o">=</span> <span class="n">dA_prev_temp</span>
+        <span class="n">grads</span><span class="p">[</span><span class="s2">&quot;dW&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">dW_temp</span>
+        <span class="n">grads</span><span class="p">[</span><span class="s2">&quot;db&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">db_temp</span>
+    <span class="k">return</span> <span class="n">grads</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">grads</span> <span class="o">=</span> <span class="n">L_model_backward</span><span class="p">(</span><span class="n">AL</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">caches</span><span class="p">)</span>
+<span class="n">grads</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;dA2&#39;: array([[ 4.77194502e-01, -4.65422790e-01, -2.30997864e-03,
+          4.69619161e-01],
+        [ 6.28550208e-01, -6.13044765e-01, -3.04265357e-03,
+          6.18572134e-01],
+        [-9.24884992e-02,  9.02069390e-02,  4.47713578e-04,
+         -9.10202679e-02]]),
+ &#39;dW3&#39;: array([[-0.00229851,  0.00028332,  0.        ]]),
+ &#39;db3&#39;: array([[0.12751846]]),
+ &#39;dA1&#39;: array([[-0.48574643,  0.00958718,  0.00235138,  0.        ],
+        [ 0.67672394, -0.08928114, -0.00327585,  0.        ],
+        [ 0.41307489, -0.05475948, -0.00199959,  0.        ],
+        [-0.37438596, -0.03454117,  0.00181231,  0.        ]]),
+ &#39;dW2&#39;: array([[-8.23189416e-02, -1.42110237e-03,  2.79039103e-03,
+         -5.26880192e-02],
+        [ 0.00000000e+00, -1.87184509e-03,  3.67544230e-03,
+         -9.30159738e-06],
+        [ 0.00000000e+00,  0.00000000e+00,  0.00000000e+00,
+          0.00000000e+00]]),
+ &#39;db2&#39;: array([[0.00236543],
+        [0.15637689],
+        [0.        ]]),
+ &#39;dA0&#39;: array([[-0.23091195,  0.00064642, -0.00031964,  0.        ],
+        [-0.041159  ,  0.00934128, -0.00189748,  0.        ],
+        [ 0.11928361,  0.01452786, -0.00310508,  0.        ],
+        [ 0.31476611, -0.02137815, -0.00278593,  0.        ],
+        [-0.22466927, -0.01806936,  0.00041167,  0.        ]]),
+ &#39;dW1&#39;: array([[-0.00156397, -0.00058392, -0.00353235, -0.00187307,  0.00019292],
+        [-0.00053448,  0.00106037, -0.00222424, -0.00239189,  0.00089139],
+        [-0.06663642, -0.07072757,  0.15135499, -0.05993305,  0.07339559],
+        [ 0.00593044,  0.00151714,  0.01395705,  0.00807165, -0.00118819]]),
+ &#39;db1&#39;: array([[ 0.00239679],
+        [-0.00081896],
+        [ 0.10276882],
+        [-0.00818221]])}
+</pre></div>
+</div>
+</section>
+</section>
+<section id="update-parameter">
+<h3>6. Update parameter<a class="headerlink" href="#update-parameter" title="Permalink to this heading">#</a></h3>
+<p>파라미터를 업데이트 하는 규칙은 생각보다 간편합니다. Learning rate인 <span class="math notranslate nohighlight">\(\alpha\)</span> 에 Gradient를 곱해서 현재의 parameter에 빼주면 새로운 parameter가 됩니다.</p>
+<div class="math notranslate nohighlight">
+\[
+W^{[l]} = W^{[l]} - \alpha \text{ } dW^{[l]}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+b^{[l]} = b^{[l]} - \alpha \text{ } db^{[l]}
+\]</div>
+<p><strong>Arguments</strong><br>
+parameters : 파라미터들이 담겨져 있는 parameter dictionary입니다.
+grads : Gradient들이 담겨있는 입니다</p>
+<p><strong>Returns</strong><br>
+parameters : 업데이트되어있는 파라미터들이 담긴 dictionary입니다</p>
+<ul class="simple">
+<li><p>parameters[“W” + str(l)] = …</p></li>
+<li><p>parameters[“b” + str(l)] = …</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update_parameters</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">grads</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">):</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span> <span class="c1"># 레이어의 갯수입니다.</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">L</span><span class="p">):</span>
+        <span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;W&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;W&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span> <span class="o">-</span> <span class="n">learning_rate</span><span class="o">*</span><span class="n">grads</span><span class="p">[</span><span class="s2">&quot;dW&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+        <span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;b&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;b&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span> <span class="o">-</span> <span class="n">learning_rate</span><span class="o">*</span><span class="n">grads</span><span class="p">[</span><span class="s2">&quot;db&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">parameters</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">parameters</span> <span class="o">=</span> <span class="n">update_parameters</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">grads</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
+<span class="n">parameters</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;W1&#39;: array([[ 0.34538211, -0.00429959, -0.54979734, -0.18010278, -0.24865177],
+        [ 0.48150568,  0.48966371,  0.45466093,  0.70027318,  0.4574713 ],
+        [-0.55234383, -0.09256777,  0.27363445,  0.76800069, -0.55123434],
+        [ 0.07651252, -0.27180027, -0.57468984,  0.56806986,  0.45423435]]),
+ &#39;b1&#39;: array([[-2.39679482e-04],
+        [ 8.18962628e-05],
+        [-1.02768824e-02],
+        [ 8.18221459e-04]]),
+ &#39;W2&#39;: array([[-0.01236697,  0.19197014,  0.11737631,  0.0794834 ],
+        [-0.75716588,  0.93119421,  0.56749545, -0.65197684],
+        [-0.55100467, -0.26469174, -0.21975884, -0.01100711]]),
+ &#39;b2&#39;: array([[-0.00023654],
+        [-0.01563769],
+        [ 0.        ]]),
+ &#39;W3&#39;: array([[ 0.93946817,  1.23711594, -0.18204054]]),
+ &#39;b3&#39;: array([[-0.01275185]])}
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./ml"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../music_audio/dynamic_programming.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Audio Matching with Dynamic Programming (다이나믹 프로그래밍을 이용한 오디오 매칭)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="optim.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Optimization, GradientDescent (최적화와 경사하강법)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feed-forward">Feed forward</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#network">Network</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural">Neural</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#universal-approximation-theorem">Universal Approximation Theorem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-layer-perceptron">Multi-Layer-Perceptron</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-non-linear">Linear &amp; Non-linear</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear">Linear</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-linear">Non-Linear</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#output-to-input">output to input</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ouput-layer">Ouput Layer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loss-function">Loss function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-implementation">Code Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-setting">1. Architecture Setting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initialize-parameters">2.Initialize_parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forward-propagation">3.Forward Propagation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-forward">Linear_forward</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-activation-forward">Linear-Activation Forward</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#l-layer-model">L-Layer Model</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-function">4. Cost Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#backward-propagation">5.Backward propagation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-backward">Linear backward</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-activation-backward">Linear-Activation backward</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#l-model-backward">L-Model Backward</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-parameter">6. Update parameter</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By SeungHeon Doh
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
