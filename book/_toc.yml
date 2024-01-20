@@ -16,7 +16,7 @@ parts:
   - caption: Ph.D Survival
     chapters:
       - file: phd/advice.md
-      - file: phd/pessimisim.md
+      - file: phd/pessimism.md
   # - caption: References
   #   chapters:
   #     - file: bibliography.md
