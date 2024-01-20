@@ -1,5 +1,7 @@
 # Feed forward Network (순방향 신경망)
 
+- 이 글은 2019년도에 Andrew ug 교수님의 coursera강의를 듣고 쓴 글임을 밝힙니다.
+
 이 포스팅에서는 backpropagation을 Feedforward Network를 활용해서 구현해 봅니다. Deep feedforward network, 흔히 말하는 Multi-layer perceptron은 어떤 function $f^{*}$에 근사하는 함수를 찾아가는 모형입니다. Classifier는 $y=f^{*}(x)$에서 $f^{*}$를 뜻하게 됩니다. 이는 input $x$와 category $y$를 mapping 하는 함수라는 것입니다. 우리의 feed forward network는 $y=f(x;\theta)$의 mapping 관계를 정의합니다. 이때 함수의 파라미터인 $\theta$를 학습하며, 최적의 function approximation를 찾아나가게 됩니다. function $f^{*}$는 우리의 이상적인 분류 모델이라고 생각하면됩니다.
 
 ## Feed forward
