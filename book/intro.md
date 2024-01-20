@@ -41,11 +41,10 @@ Generated Image from DALL-E (OpenAI)
 - Energy-based Model
 
 **Informational Retrieval**
+- History of Text-to-Music Retrieval
 - Evaluation for Informational Retrieval
 
 **Ph.D Survival**
-- Advise
-- Minimum Viable Prototyping for Research
 - Rebuttal
 - Thesis Plan
 - Internship
