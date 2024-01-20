@@ -1,5 +1,7 @@
 # Optimization, GradientDescent (최적화와 경사하강법)
 
+- 이 글은 2019년도에 Andrew ug 교수님의 coursera강의를 듣고 쓴 글임을 밝힙니다.
+
 본 포스팅은 Beale Function을 이용하여 한번 다양한 NN optimzation 함수를 구현해보고 해결해 보려고 합니다! 각 최적화 기법들의 특징들을 살펴봅시다. 일반적인 Gradient Descent의 문제점은, Local Minimum 과 Saddle point에 빠지는 경우의 수입니다.
 
 ## Gradient Descent

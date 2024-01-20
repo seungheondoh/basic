@@ -68,6 +68,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="About Advising (지도에 관하여)" href="../phd/advice.html" />
     <link rel="prev" title="Feed forward Network (순방향 신경망)" href="deeplearning.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -174,7 +175,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../intro.html">
-                    Music Infromation Retrieval and Machine Learning
+                    Music, Audio and Machine Learning Blog
                 </a>
             </li>
         </ul>
@@ -188,6 +189,10 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="deeplearning.html">Feed forward Network (순방향 신경망)</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Optimization, GradientDescent (최적화와 경사하강법)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Ph.D Survival</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../phd/advice.html">About Advising (지도에 관하여)</a></li>
 </ul>
 
     </div>
@@ -403,6 +408,9 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="optimization-gradientdescent">
 <h1>Optimization, GradientDescent (최적화와 경사하강법)<a class="headerlink" href="#optimization-gradientdescent" title="Permalink to this heading">#</a></h1>
+<ul class="simple">
+<li><p>이 글은 2019년도에 Andrew ug 교수님의 coursera강의를 듣고 쓴 글임을 밝힙니다.</p></li>
+</ul>
 <p>본 포스팅은 Beale Function을 이용하여 한번 다양한 NN optimzation 함수를 구현해보고 해결해 보려고 합니다! 각 최적화 기법들의 특징들을 살펴봅시다. 일반적인 Gradient Descent의 문제점은, Local Minimum 과 Saddle point에 빠지는 경우의 수입니다.</p>
 <section id="gradient-descent">
 <h2>Gradient Descent<a class="headerlink" href="#gradient-descent" title="Permalink to this heading">#</a></h2>
@@ -647,6 +655,15 @@ w_{t+1} = w_t - \frac{\eta}{\sqrt{\hat{v}_t} + \epsilon} \odot (\hat{m}_t + \lam
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Feed forward Network (순방향 신경망)</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="../phd/advice.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">About Advising (지도에 관하여)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>

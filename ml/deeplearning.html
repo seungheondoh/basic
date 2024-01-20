@@ -175,7 +175,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../intro.html">
-                    Music Infromation Retrieval and Machine Learning
+                    Music, Audio and Machine Learning Blog
                 </a>
             </li>
         </ul>
@@ -189,6 +189,10 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Feed forward Network (순방향 신경망)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="optim.html">Optimization, GradientDescent (최적화와 경사하강법)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Ph.D Survival</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../phd/advice.html">About Advising (지도에 관하여)</a></li>
 </ul>
 
     </div>
@@ -429,6 +433,9 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="feed-forward-network">
 <h1>Feed forward Network (순방향 신경망)<a class="headerlink" href="#feed-forward-network" title="Permalink to this heading">#</a></h1>
+<ul class="simple">
+<li><p>이 글은 2019년도에 Andrew ug 교수님의 coursera강의를 듣고 쓴 글임을 밝힙니다.</p></li>
+</ul>
 <p>이 포스팅에서는 backpropagation을 Feedforward Network를 활용해서 구현해 봅니다. Deep feedforward network, 흔히 말하는 Multi-layer perceptron은 어떤 function <span class="math notranslate nohighlight">\(f^{*}\)</span>에 근사하는 함수를 찾아가는 모형입니다. Classifier는 <span class="math notranslate nohighlight">\(y=f^{*}(x)\)</span>에서 <span class="math notranslate nohighlight">\(f^{*}\)</span>를 뜻하게 됩니다. 이는 input <span class="math notranslate nohighlight">\(x\)</span>와 category <span class="math notranslate nohighlight">\(y\)</span>를 mapping 하는 함수라는 것입니다. 우리의 feed forward network는 <span class="math notranslate nohighlight">\(y=f(x;\theta)\)</span>의 mapping 관계를 정의합니다. 이때 함수의 파라미터인 <span class="math notranslate nohighlight">\(\theta\)</span>를 학습하며, 최적의 function approximation를 찾아나가게 됩니다. function <span class="math notranslate nohighlight">\(f^{*}\)</span>는 우리의 이상적인 분류 모델이라고 생각하면됩니다.</p>
 <section id="feed-forward">
 <h2>Feed forward<a class="headerlink" href="#feed-forward" title="Permalink to this heading">#</a></h2>
