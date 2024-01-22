@@ -1,4 +1,4 @@
-# Optimization, GradientDescent (최적화와 경사하강법)
+# Optimization (최적화)
 
 - 이 글은 2019년도에 Andrew ug 교수님의 coursera강의를 듣고 쓴 글임을 밝힙니다.
 
