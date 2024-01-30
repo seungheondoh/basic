@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Training Parallelism Overview (Data, Model, Tensor) &#8212; Music Information Retrieval &amp; Machine Learning Blog</title>
+    <title>지원서 체크리스트 &#8212; Music Information Retrieval &amp; Machine Learning Blog</title>
   
   
   
@@ -62,7 +62,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'eng/first';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'phd/j1visa';</script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -181,6 +181,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../music_audio/ear.html">Auditory Pathway (귀의 청각경로)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../music_audio/dynamic_programming.html">Audio Matching with Dynamic Programming (다이나믹 프로그래밍을 이용한 오디오 매칭)</a></li>
 </ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Engineering</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../eng/parallelism.html">Training Parallelism Overview (Data, Model, Tensor)</a></li>
+</ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Machine Learning</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../ml/deeplearning.html">Feed forward Network (순방향 신경망)</a></li>
@@ -188,8 +192,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Ph.D Survival</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../phd/advice.html">About Advising (연구 지도에 관하여)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../phd/pessimism.html">Reflecting on ‘There is no contribution to this paper.’ (냉소적 논문읽기에 대한 반성)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advice.html">About Advising (연구 지도에 관하여)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pessimism.html">Reflecting on ‘There is no contribution to this paper.’ (냉소적 논문읽기에 대한 반성)</a></li>
 </ul>
 
     </div>
@@ -261,7 +265,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/seungheondoh/basic/issues/new?title=Issue%20on%20page%20%2Feng/first.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/seungheondoh/basic/issues/new?title=Issue%20on%20page%20%2Fphd/j1visa.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -291,7 +295,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="../_sources/eng/first.md" target="_blank"
+      <li><a href="../_sources/phd/j1visa.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -362,7 +366,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -373,11 +379,21 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Training Parallelism Overview (Data, Model, Tensor)</h1>
+    <h1>지원서 체크리스트</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">지원서 체크리스트</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#if-you-are-a-student-please-provide-evidence-you-are-enrolled-in-and-currently-attending-courses">학생인 경우 현재 수업을 듣고 있는 증거를 제공하십시오 (If you are a student, please provide evidence you are enrolled in and currently attending courses:)</a></li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -387,26 +403,38 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="training-parallelism-overview-data-model-tensor">
-<h1>Training Parallelism Overview (Data, Model, Tensor)<a class="headerlink" href="#training-parallelism-overview-data-model-tensor" title="Permalink to this heading">#</a></h1>
+  <section id="id1">
+<h1>지원서 체크리스트<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+<p>모든 지원자는 업로드/작성해야 합니다:</p>
 <ul class="simple">
-<li><p>이 글은 <a class="reference external" href="https://sumanthrh.com/post/distributed-and-efficient-finetuning/">Everything about Distributed Training and Efficient Finetuning-Sumanthrh</a>, <a class="reference external" href="https://lilianweng.github.io/posts/2021-09-25-train-large/">How to Train Really Large Models on Many GPUs?-lilianweng</a> <a class="reference external" href="https://github.com/tunib-ai/large-scale-lm-tutorials">TUNiB-large-scale-lm-tutorials</a>을 참고했습니다.</p></li>
+<li><p>여권: 유효한 여권의 스캔 본 - 사진, 이름, 발급 정보가 있는 페이지. 여권은 교육 종료 날짜로부터 최소 6개월 이상 유효해야 합니다. 6개월 미만으로 유효한 경우 Cultural Vistas에 상담하십시오.</p></li>
+<li><p>영어 증명서: 영국, 아일랜드, 캐나다, 호주, 뉴질랜드 시민권을 보유하지 않는 경우 영어 능력의 증명이 지난 3년 이내에 발급되어야 합니다. 이에는 영어 시험 기관의 인증서, 시험 점수 (TOEFL, TOEIC, IELTS) 또는 50% 이상의 수업이 영어로 진행된 것을 확인하는 대학에서 서명한 서류가 포함될 수 있습니다.</p></li>
+<li><p>이력서 또는 CV: 교육 및 직업 경력을 영어로 정리한 최신 연대순 개요.</p></li>
+<li><p>예산 워크시트 (다운로드): Cultural Vistas에서 이메일 첨부로 제공하는 이 Microsoft Excel 워크북. 자금 및 비용 추정은 미국 달러로 작성되어야 합니다. 작성이 완료되면 온라인 지원서에 업로드하십시오.</p></li>
+<li><p>비관광 비자: 이전에 취득한 비관광 미국 비자 사본, 이전 J-1 비자 프로그램에 참여한 경우 이전 DS-7002 양식 사본 포함.</p></li>
+<li><p>에세이 섹션: 지원 웹 사이트에서 제공되는 지침에 따라 작성되어야 합니다. 각 에세이 응답은 적어도 3-4개의 완전한 문장이어야 합니다. 응답이 충분히 길지 않거나 점 목록으로 작성된 경우 지원서를 다시 제출하라는 요청이 있을 것입니다. 학생인 경우 현재 수업을 듣고 있는 증거를 제공하십시오:</p></li>
 </ul>
-<p>요즘 Large-Scale Training은 모델의 성능과 새로운 <a class="reference external" href="https://arxiv.org/abs/2206.07682">Emerging ability</a>를 보여주기 떄문에 많은 사람들의 관심을 받고 있습니다. 이러한 Large-Scale 학습의 목적은 큰 모델 크기 (Billion Scale)과 대규모 데이터셋 (Million Scale) 입니다. 우리의 목표는 가능한 많은 샘플을 초당 처리할수 있도록 하는 것입니다. 이러한 문제로 인해 우리는 큰 GPU vRAM이 필요합니다. 모델 가중치와 데이터를 올려야합니다.</p>
-<p>이렇듯 큰 모델과 큰 데이터를 처리하려면 여러대의 GPU를 사용하여 분산처리가 중요합니다. 이때 분산처리는 모델의 측면에서도, 데이터의 측면에서도 진행할 수 있습니다.</p>
-<ol class="arabic simple">
-<li><p>Data Parallelism(DP, DDP): 각 GPU 워커는 전체 미니 배치의 일부를 받아들이고 해당 데이터 부분에서 Gradients를 계산합니다. 그런 다음 Gradients는 모든 워커를 통해 평균화되고 모델 가중치가 업데이트됩니다. PyTorch DDP와 같은 가장 기본적인 형태에서 각 GPU는 작업 중인 데이터 부분에 대한 모델 가중치, 옵티마이저 상태 및 Gradients의 복사본을 저장합니다.</p></li>
-<li><p>(Vertical) Model Parallelism (MP): 모델 병렬화에서는 모델이 수직으로 나뉘어 모델의 다른 레이어가 다른 GPU 워커에 배치됩니다. 단일 모델에 12개의 레이어가 있는 경우 3개의 GPU에 배치된 경우를 생각해보세요.</p></li>
-</ol>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>---------------<span class="w">  </span>---------------<span class="w">  </span>-----------------
-<span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="p">|</span><span class="w">  </span><span class="m">5</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="p">|</span><span class="w">  </span><span class="m">9</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">11</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="p">|</span>
----------------<span class="w">  </span>---------------<span class="w">  </span>-----------------
-</pre></div>
-</div>
-<p>단순 모델 병렬화에서는 모든 GPU가 동일한 데이터 배치를 처리하는 동안 이전 GPU가 계산을 마칠 때까지 기다린 다음 데이터를 처리합니다. 이를 개선한 것이 바로 Pipeline Parallelism (PP) 입니다. 여기서는 Micro Batch를 구현하여, 마이크로 배치 데이터에 대해 계산을 겹쳐서 병렬처리를 구현합니다.</p>
-<ol class="arabic simple" start="3">
-<li><p>Tensor Parallelism (TP): 텐서 병렬화에서 각 GPU는 모델을 수평으로 나누어 텐서의 일부만 처리합니다. 각 워커는 동일한 데이터 배치를 처리하며 자신이 가진 가중치 부분에 대한 활성화를 계산하고 서로 필요한 부분을 교환하며 각 워커는 가중치 일부에 대한 기울기를 계산합니다.</p></li>
-</ol>
+</section>
+<section id="if-you-are-a-student-please-provide-evidence-you-are-enrolled-in-and-currently-attending-courses">
+<h1>학생인 경우 현재 수업을 듣고 있는 증거를 제공하십시오 (If you are a student, please provide evidence you are enrolled in and currently attending courses:)<a class="headerlink" href="#if-you-are-a-student-please-provide-evidence-you-are-enrolled-in-and-currently-attending-courses" title="Permalink to this heading">#</a></h1>
+<ul class="simple">
+<li><p>재적 증명서 (샘플 다운로드): 대학에서 발행한 공식 편지로 다음 내용을 명시해야 합니다: 이 편지는 교수 또는 대학 관리자가 서명 또는 도장이 찍힌 대학 서신지에 영어로 발행되어야 하며, 지난 3개월 이내의 날짜가 표시되어 있어야 합니다.</p>
+<ul>
+<li><p>현재 학기에 외국 고등 교육 기관에서 전과 등록 중임을 확인하는 내용*</p></li>
+<li><p>귀하의 학위 또는 과정</p></li>
+<li><p>졸업 또는 프로그램 완료의 예정 날짜</p></li>
+</ul>
+</li>
+<li><p>성정 증명서:영어로 된 최신 학적 사항 사본으로 다음이 포함되어 있어야 합니다:</p>
+<ul>
+<li><p>현재까지 이수한 모든 강좌와 성적</p></li>
+<li><p>현재 등록 및 수강 중인 모든 강좌</p></li>
+<li><p>학기 날짜 (예: 2023년 겨울)</p></li>
+<li><p>귀하의 대학이 현재 수강 중인 강좌가 명시된 학적 사본을 제공할 수 없는 경우, 다른 대학 관리자나 교수에게 현재 수강 중인 강좌를 나열한 편지를 작성해 달라고 요청할 수 있습니다. 이 편지는 대학 서신지에 서명이나 도장이 찍히고 지난 3개월 이내의 날짜가 표시되어야 합니다. 편지 대신에 대학 포털을 통해 영어로 온라인으로 나열된 귀하의 이름과 현재 수강 중인 강좌가 포함된 스크린샷을 제출할 수도 있습니다.</p></li>
+</ul>
+</li>
+<li><p>Professor Letter: 전액 수강 중이 아닌 대학원생은 졸업 논문 지도 교수가 현재 및 가장 최근 학기에 대한 전체 시간 학생 요구사항 중 일부인 연구, 교육 책임 또는 기타 학문적 활동을 개요로 작성한 편지를 제출해야 합니다.</p></li>
+</ul>
 </section>
 
     <script type="text/x-thebe-config">
@@ -422,7 +450,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./eng"
+            path: "./phd"
         },
         predefinedOutput: true
     }
@@ -446,7 +474,22 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">지원서 체크리스트</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#if-you-are-a-student-please-provide-evidence-you-are-enrolled-in-and-currently-attending-courses">학생인 경우 현재 수업을 듣고 있는 증거를 제공하십시오 (If you are a student, please provide evidence you are enrolled in and currently attending courses:)</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>

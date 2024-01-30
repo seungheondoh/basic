@@ -45,6 +45,7 @@ Generated Image from DALL-E (OpenAI)
 - Evaluation for Informational Retrieval
 
 **Ph.D Survival**
+- My topic appeared at a conference?!
 - Rebuttal
 - Thesis Plan
 - Internship
